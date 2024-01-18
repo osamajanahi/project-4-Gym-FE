@@ -6,6 +6,9 @@ import Signin from './components/user/Signin';
 import {Routes, Route, Link} from 'react-router-dom';
 import Axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import NavBar from './components/home/NavBar';
+import Home from './components/home/Home';
+import ClassList from './components/class/ClassList';
 
 function App() {
   const[isAuth, setIsAuth] = useState(false);
@@ -75,32 +78,15 @@ function App() {
   }
   return (
     <div className="App">
-            <nav>
-    {isAuth ?
-    (
-
-        <div>
-          <Link to="/">Home</Link> &nbsp;
-          <Link to="/logout" onClick={onLogoutHandler}>Logout</Link>
-        </div>
-  ) :
-(
-        <div>
-          <Link to="/">Home</Link> &nbsp;
-          <Link to="/signup">Signup</Link> &nbsp;
-          <Link to ="signin">Singin</Link>&nbsp;
-        </div>
-        )
-}
-</nav>
+      <NavBar isAuth={isAuth} onLogoutHandler={onLogoutHandler}/>
       <div>
       <Routes>
-        <Route path="/" element={ isAuth ? <Index/> : <Signin login={loginHandler}></Signin>}></Route>
+        <Route path="/" element={ <Home/>}></Route>
+        <Route path="/class" element={<ClassList/>}></Route>
         <Route path="/signup" element={<Signup register={registerHandler}></Signup>}></Route>
-        <Route path="/signin" element={ isAuth ? <Index/> : <Signin login={loginHandler}></Signin>}></Route>
+        <Route path="/signin" element={ isAuth ? <Home/> : <Signin login={loginHandler}></Signin>}></Route>
       </Routes>
       </div>
-
     </div>
   );
 }
