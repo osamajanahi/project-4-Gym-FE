@@ -9,6 +9,10 @@ import {jwtDecode} from 'jwt-decode';
 import NavBar from './components/home/NavBar';
 import Home from './components/home/Home';
 import ClassList from './components/class/ClassList';
+import ClassEdit from './components/class/ClassEdit';
+import ClassCreate from './components/class/ClassCreate';
+import ClassDetail from './components/class/ClassDetail';
+import ClassManage from './components/class/ClassManage';
 
 function App() {
   const[isAuth, setIsAuth] = useState(false);
@@ -16,7 +20,7 @@ function App() {
 
   useEffect(() =>{ 
     const user = getUser();
-    console.log(user);
+    // console.log(user);
     if(user){
       setIsAuth(true)
       setUser(user)
@@ -81,10 +85,14 @@ function App() {
       <NavBar isAuth={isAuth} onLogoutHandler={onLogoutHandler}/>
       <div>
       <Routes>
-        <Route path="/" element={ <Home/>}></Route>
+        <Route path="/" element={ <Home isAuth={isAuth}/>}></Route>
         <Route path="/class" element={<ClassList/>}></Route>
         <Route path="/signup" element={<Signup register={registerHandler}></Signup>}></Route>
-        <Route path="/signin" element={ isAuth ? <Home/> : <Signin login={loginHandler}></Signin>}></Route>
+        <Route path="/signin" element={ isAuth ? <Home isAuth={isAuth}/> : <Signin login={loginHandler}></Signin>}></Route>
+        <Route path='/class/add' element={<ClassCreate/>}></Route>
+        <Route path="/class/edit/:id" element={<ClassEdit/>}></Route>
+        <Route path="/class/view/:id" element={<ClassDetail/>}></Route>
+        <Route path="/class/manage/:id" element={<ClassManage/>}></Route>
       </Routes>
       </div>
     </div>
