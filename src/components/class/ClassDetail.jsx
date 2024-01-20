@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function ClassDetail(props) {
 
     const [classes, setClasses] = useState({});
+    const [date, setDate] = useState();
     const navigate = useNavigate();
     const { id } = useParams();
     useEffect(() =>{
@@ -21,14 +22,51 @@ export default function ClassDetail(props) {
     }
 
     const addUser = (ids) =>{
-        console.log(ids)
+        // console.log(ids)
         Axios.get(`/class/enroll?class=${ids.class}&user=${ids.user}`)
         .then(() =>{
-            navigate('/class')
+            addReiept(ids)
+        })
+        .catch(err =>{
+            console.log(err)
         })
     }
 
+    const addReiept = (data) =>{
+        Axios.post(`/receipt/add`, data)
+        .then(() =>{
+            navigate('/class');
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    }
+
+    const handelChange = (event) =>{
+        setDate(event.target.value);
+    }
+
+
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        let endDate = new Date(date);
+        endDate.setDate(endDate.getDate()+30)
+        endDate = endDate.toISOString().split('T')[0];
+        addUser({"class": classes._id, "user": props.userId, "startDate": date, "endDate": endDate})
+    }
+
+
+    let currentDate = new Date();
+
+    let tenthDay = new Date(currentDate);
+    tenthDay.setDate(currentDate.getDate() + 10);
+
+    let formattedTenthDay = tenthDay.toISOString().split('T')[0]
+
+    currentDate = new Date().toISOString().split('T')[0];
+
     return (
+        
         <div>
             <h1>ClassDetail</h1>
                 <h3>Class: {classes.name}</h3>
@@ -39,8 +77,14 @@ export default function ClassDetail(props) {
                 {classes.image?.map((image, index) => (
                     <img key={index} src={image} alt='class image' height={100} width={100}/>
                 ))}
+
                 <br />
-                <button onClick={() => addUser({"class": classes._id, "user": props.userId})}>Enroll</button>
+
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="date">Starting Date:</label>
+                    <input type="date" id="date" name="date" onChange={handelChange} required />
+                    <button type='submit'>Enroll</button>
+                </form>
         </div>
     )
 }
