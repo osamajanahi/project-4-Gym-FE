@@ -9,6 +9,12 @@ export default function Home({isAuth}) {
             {isAuth &&
                 <Link to='/class'>Class</Link>
             }
+            <br />
+            {isAuth &&
+                <Link to='/myClasses'>My Classes</Link>
+            }
+
+
         </div>
     )
 }

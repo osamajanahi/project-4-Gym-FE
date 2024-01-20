@@ -5,6 +5,7 @@ import {useNavigate } from "react-router-dom";
 export default function ClassCreate() {
     const[newClass, setNewClass] = useState({})
     const navigate = useNavigate();
+    
     const addClass = (data) =>{
         Axios.post('/class/add', data)
         .then(() =>{
