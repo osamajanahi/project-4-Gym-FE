@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import Index from './components/new/Index';
 import Signup from './components/user/Signup';
 import Signin from './components/user/Signin';
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import Axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 import NavBar from './components/home/NavBar';
@@ -80,6 +79,7 @@ function App() {
     setIsAuth(false);
     setUser(null);
   }
+  console.log(user.id)
   return (
     <div className="App">
       <NavBar isAuth={isAuth} onLogoutHandler={onLogoutHandler}/>
@@ -91,7 +91,7 @@ function App() {
         <Route path="/signin" element={ isAuth ? <Home isAuth={isAuth}/> : <Signin login={loginHandler}></Signin>}></Route>
         <Route path='/class/add' element={<ClassCreate/>}></Route>
         <Route path="/class/edit/:id" element={<ClassEdit/>}></Route>
-        <Route path="/class/view/:id" element={<ClassDetail/>}></Route>
+        <Route path="/class/view/:id" element={ isAuth ? <ClassDetail userId={user.id}/> : <ClassDetail/>}></Route>
         <Route path="/class/manage/:id" element={<ClassManage/>}></Route>
       </Routes>
       </div>
