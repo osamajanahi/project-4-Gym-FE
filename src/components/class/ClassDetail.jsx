@@ -82,7 +82,7 @@ export default function ClassDetail(props) {
 
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="date">Starting Date:</label>
-                    <input type="date" id="date" name="date" onChange={handelChange} required />
+                    <input type="date" id="date" name="date" min={currentDate} max={formattedTenthDay} onChange={handelChange} required />
                     <button type='submit'>Enroll</button>
                 </form>
         </div>
