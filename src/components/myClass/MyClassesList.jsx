@@ -14,7 +14,6 @@ console.log(receipts)
         Axios.get(`/receipt/myReceipts?user=${props.userId}`)
         .then(result =>{
             console.log(result.data)
-
             setReceipts(result.data);
         })
         .catch(err =>{

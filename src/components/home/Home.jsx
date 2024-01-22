@@ -13,6 +13,11 @@ export default function Home({isAuth}) {
             {isAuth &&
                 <Link to='/myClasses'>My Classes</Link>
             }
+            <br />
+            {isAuth &&
+                <Link to='/category'>Category</Link>
+            }
+
 
 
         </div>

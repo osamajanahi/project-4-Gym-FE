@@ -13,6 +13,8 @@ import ClassCreate from './components/class/ClassCreate';
 import ClassDetail from './components/class/ClassDetail';
 import ClassManage from './components/class/ClassManage';
 import MyClassesList from './components/myClass/MyClassesList';
+import CategoryList from './components/category/CategoryList';
+import CategoryEdit from './components/category/CategoryEdit'
 
 function App() {
   const[isAuth, setIsAuth] = useState(false);
@@ -94,7 +96,9 @@ function App() {
         <Route path="/class/edit/:id" element={<ClassEdit/>}></Route>
         <Route path="/class/view/:id" element={ isAuth ? <ClassDetail userId={user.id}/> : <ClassDetail/>}></Route>
         <Route path="/class/manage/:id" element={<ClassManage/>}></Route>
-        <Route path="myClasses" element={isAuth ? <MyClassesList userId={user.id}/> : <MyClassesList/>}></Route>
+        <Route path="/myClasses" element={isAuth ? <MyClassesList userId={user.id}/> : <MyClassesList/>}></Route>
+        <Route path="/category" element={<CategoryList />}></Route>
+        <Route path='/category/edit/:id' element={<CategoryEdit/>}/>
       </Routes>
       </div>
     </div>
