@@ -10,6 +10,7 @@ export default function Category(props) {
             <Link to={`/category/edit/${props._id}`}>
                 <button type="button" className="btn btn-outline-primary mb-2">Edit</button>
             </Link>
+            <Link to={`/category/view/${props._id}`}>View</Link>
 
             <hr />
         </div>

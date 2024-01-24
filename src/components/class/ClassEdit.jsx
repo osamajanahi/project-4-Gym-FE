@@ -3,13 +3,31 @@ import Axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function ClassEdit() {
+    const [categories, setCategories] = useState([]);
     const [classes, setClasses] = useState({})
     const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(()=>{
         editVew(id)
-    },[])
+        loadCategories();
+    },[id])
+
+    const loadCategories = () => {
+        Axios.get("/category")
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    const allCategories = categories.map((cate) => (
+        <option key={cate._id} value={cate._id} selected={classes.category === cate._id}>
+            {cate.name}
+        </option>
+    ));
 
     const editVew = (id) =>{
         Axios.get(`/class/edit?id=${id}`)
@@ -125,6 +143,13 @@ export default function ClassEdit() {
                 <div>
                     <label htmlFor="image">Images:</label>
                     <input type="file" name='image' id='image' onChange={handleChange} multiple/>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category:</label>
+                    <select className="form-select" id="category" name="category" onChange={handleChange} required>
+                        {allCategories}
+                    </select>
                 </div>
 
                 <button type='submit'>Update Class</button>

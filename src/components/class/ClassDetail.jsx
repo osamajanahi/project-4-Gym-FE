@@ -5,11 +5,24 @@ export default function ClassDetail(props) {
 
     const [classes, setClasses] = useState({});
     const [date, setDate] = useState();
+    const [receipts, setReceipts] = useState([]);
     const navigate = useNavigate();
     const { id } = useParams();
     useEffect(() =>{
         loadClasses(id)
+        loadReceipts()
     },{})
+
+    const loadReceipts = () =>{
+        Axios.get(`/receipt/myReceipts?user=${props.userId}`)
+        .then(result =>{
+            console.log(result.data)
+            setReceipts(result.data);
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    }
 
     const loadClasses = (id) =>{
         Axios.get(`/class/edit?id=${id}`)

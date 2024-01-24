@@ -14,7 +14,9 @@ import ClassDetail from './components/class/ClassDetail';
 import ClassManage from './components/class/ClassManage';
 import MyClassesList from './components/myClass/MyClassesList';
 import CategoryList from './components/category/CategoryList';
-import CategoryEdit from './components/category/CategoryEdit'
+import CategoryEdit from './components/category/CategoryEdit';
+import CategoryCreate from './components/category/CategoryCreate';
+import CategoryDetail from './components/category/CategoryDetail';
 
 function App() {
   const[isAuth, setIsAuth] = useState(false);
@@ -94,11 +96,13 @@ function App() {
         <Route path="/signin" element={ isAuth ? <Home isAuth={isAuth}/> : <Signin login={loginHandler}></Signin>}></Route>
         <Route path='/class/add' element={<ClassCreate/>}></Route>
         <Route path="/class/edit/:id" element={<ClassEdit/>}></Route>
-        <Route path="/class/view/:id" element={ isAuth ? <ClassDetail userId={user.id}/> : <ClassDetail/>}></Route>
+        <Route path="/class/view/:id" element={ isAuth ? <ClassDetail key={user.id} userId={user.id}/> : <ClassDetail/>}></Route>
         <Route path="/class/manage/:id" element={<ClassManage/>}></Route>
-        <Route path="/myClasses" element={isAuth ? <MyClassesList userId={user.id}/> : <MyClassesList/>}></Route>
+        <Route path="/myClasses" element={isAuth ? <MyClassesList key={user.id} userId={user.id}/> : <MyClassesList/>}></Route>
         <Route path="/category" element={<CategoryList />}></Route>
         <Route path='/category/edit/:id' element={<CategoryEdit/>}/>
+        <Route path='/category/add' element={<CategoryCreate/>}></Route>
+        <Route path="/category/view/:id" element={<CategoryDetail/>}></Route>
       </Routes>
       </div>
     </div>

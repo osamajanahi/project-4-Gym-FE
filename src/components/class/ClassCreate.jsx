@@ -4,8 +4,28 @@ import {useNavigate } from "react-router-dom";
 
 export default function ClassCreate() {
     const[newClass, setNewClass] = useState({})
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
     
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = () => {
+        Axios.get("/category")
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+    const allCategories = categories.map((cate) => (
+        <option key={cate._id} value={cate._id}>
+            {cate.name}
+        </option>
+    ));
+
     const addClass = (data) =>{
         Axios.post('/class/add', data)
         .then(() =>{
@@ -84,6 +104,14 @@ export default function ClassCreate() {
                 <div>
                     <label htmlFor="image">Images:</label>
                     <input type="file" id='image' name='image' onChange={handleChange} multiple required/>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category:</label>
+                    <select className="form-select" id="category" name="category" onChange={handleChange} required>
+                        <option value="">Select a Category</option>
+                        {allCategories}
+                    </select>
                 </div>
 
                 <button type='submit'>Add Class</button>

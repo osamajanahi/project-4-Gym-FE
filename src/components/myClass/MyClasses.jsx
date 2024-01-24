@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function MyClasses(props) {
+    console.log(props.class.name)
     return (
         <div>
             <p>Class Name: {props.class.name}</p>

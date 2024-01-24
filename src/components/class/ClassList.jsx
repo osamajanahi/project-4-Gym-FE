@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import Class from './Class';
-import {useNavigate } from "react-router-dom";
 
 export default function ClassList() {
     const [classes, setClasses] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() =>{
         loadClasses()
