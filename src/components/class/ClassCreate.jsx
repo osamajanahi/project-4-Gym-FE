@@ -4,8 +4,28 @@ import {useNavigate } from "react-router-dom";
 
 export default function ClassCreate() {
     const[newClass, setNewClass] = useState({})
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
     
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = () => {
+        Axios.get("/category")
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+    const allCategories = categories.map((cate) => (
+        <option key={cate._id} value={cate._id}>
+            {cate.name}
+        </option>
+    ));
+
     const addClass = (data) =>{
         Axios.post('/class/add', data)
         .then(() =>{
@@ -63,30 +83,43 @@ export default function ClassCreate() {
             <form onSubmit={handleSubmit}>
                  <div>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" id='name' name='name' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='name' name='name' onChange={handleChange} required/>
                 </div>
 
                <div>
                     <label htmlFor="duration">Duration:</label>
-                    <input type="text" id='duration' name='duration' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='duration' name='duration' onChange={handleChange} required/>
+                </div>
+
+                <div>
+                    <label htmlFor="days">Days:</label>
+                    <input className='form-control' type="text" id='days' name='days' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="price">Price:</label>
-                    <input type="number" id='price' name='price' onChange={handleChange} required/>
+                    <input className='form-control'type="number" id='price' name='price' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="description">Description:</label>
-                    <input type="text" id='description' name='description' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='description' name='description' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="image">Images:</label>
-                    <input type="file" id='image' name='image' onChange={handleChange} multiple required/>
+                    <input className='form-control'type="file" id='image' name='image' onChange={handleChange} multiple required/>
                 </div>
 
-                <button type='submit'>Add Class</button>
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category:</label>
+                    <select className="form-select" id="category" name="category" onChange={handleChange} required>
+                        <option value="">Select a Category</option>
+                        {allCategories}
+                    </select>
+                </div>
+
+                <button className='btn btn-outline-primary' type='submit'>Add Class</button>
             </form>
         </div>
     )

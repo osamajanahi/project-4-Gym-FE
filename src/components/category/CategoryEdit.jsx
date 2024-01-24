@@ -37,15 +37,15 @@ export default function CategoryEdit() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
+        Object.keys(category).forEach(key => {
+            if (key === 'image') {
+                    formData.append('image', category.image);
+            } else if (key !== 'class') {
+                formData.append(key, category[key]);
+            }
+        });
 
-        formData.append('name', category.name);
-        if (category.image instanceof File) {
-            formData.append('image', category.image);
-        } else {
-            formData.append('currentImage', category.image); // Pass current image URL if new image not uploaded
-        }
-
-        Axios.post(`/category/edit/${id}`, formData)
+        Axios.post(`/category/edit`, formData)
             .then(() => {
                 navigate('/category');
             })

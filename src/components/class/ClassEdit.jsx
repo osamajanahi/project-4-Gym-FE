@@ -3,13 +3,31 @@ import Axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function ClassEdit() {
+    const [categories, setCategories] = useState([]);
     const [classes, setClasses] = useState({})
     const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(()=>{
         editVew(id)
-    },[])
+        loadCategories();
+    },[id])
+
+    const loadCategories = () => {
+        Axios.get("/category")
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    const allCategories = categories.map((cate) => (
+        <option key={cate._id} value={cate._id} selected={classes.category === cate._id}>
+            {cate.name}
+        </option>
+    ));
 
     const editVew = (id) =>{
         Axios.get(`/class/edit?id=${id}`)
@@ -96,23 +114,28 @@ export default function ClassEdit() {
             <h1>ClassEdit</h1>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id='name' name='name' onChange={handleChange} value={classes.name || ''} required/>
+                    <label className='form-label' htmlFor="name">Name:</label>
+                    <input className='form-control' type="text" id='name' name='name' onChange={handleChange} value={classes.name || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="duration">Duration:</label>
-                    <input type="text" id='duration' name='duration' onChange={handleChange} value={classes.duration || ''} required/>
+                    <label className='form-label' htmlFor="duration">Duration:</label>
+                    <input className='form-control' type="text" id='duration' name='duration' onChange={handleChange} value={classes.duration || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="price">Price:</label>
-                    <input type="number" id='price'name='price' onChange={handleChange} value={classes.price || ''} required/>
+                    <label htmlFor="days">Days:</label>
+                    <input className='form-control' type="text" id='days' name='days' onChange={handleChange} value={classes.duration || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="description">Description:</label>
-                    <input type="text" id='description'name='description' onChange={handleChange} value={classes.description || ''} required/>
+                    <label className='form-label' htmlFor="price">Price:</label>
+                    <input className='form-control' type="number" id='price'name='price' onChange={handleChange} value={classes.price || ''} required/>
+                </div>
+
+                <div>
+                    <label className='form-label' htmlFor="description">Description:</label>
+                    <input className='form-control' type="text" id='description'name='description' onChange={handleChange} value={classes.description || ''} required/>
                 </div>
 
                 {/* <div>
@@ -123,11 +146,18 @@ export default function ClassEdit() {
                 </div> */}
 
                 <div>
-                    <label htmlFor="image">Images:</label>
-                    <input type="file" name='image' id='image' onChange={handleChange} multiple/>
+                    <label className='form-label' htmlFor="image">Images:</label>
+                    <input className='form-control' type="file" name='image' id='image' onChange={handleChange} multiple/>
                 </div>
 
-                <button type='submit'>Update Class</button>
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category:</label>
+                    <select className="form-select" id="category" name="category" onChange={handleChange} required>
+                        {allCategories}
+                    </select>
+                </div>
+
+                <button className='btn btn-outline-primary' type='submit'>Update Class</button>
             </form>
         </div>
     )

@@ -1,13 +1,27 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+.slog {
+  color: white;
+  font-size: 25px;
+}
+
+.inner-name {
+  font-size: 20px;
+}
+
+.bkImage {
+  height: 600px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; /* Center the image within the container */
+  background-image: url("http://res.cloudinary.com/dbk40zyi7/image/upload/v1706126825/qered5cysjyr7q6rmcmb.jpg");
+}
+  @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
@@ -26,6 +40,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.navEdit {
+  margin-bottom: 76px;
 }
 
 @keyframes App-logo-spin {

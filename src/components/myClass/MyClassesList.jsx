@@ -5,11 +5,13 @@ import MyClasses from './MyClasses';
 
 export default function MyClassesList(props) {
     const [receipts, setReceipts] = useState([]);
+    // const [categories, setCategories] = useState([]);
     
     useEffect(() =>{
         loadReceipts()
     }, [])
 console.log(receipts)
+
     const loadReceipts = () =>{
         Axios.get(`/receipt/myReceipts?user=${props.userId}`)
         .then(result =>{
@@ -29,7 +31,7 @@ console.log(receipts)
 
     return (
         <div>
-            <h1>myClassList</h1>
+            <h1>My Classes</h1>
             {allReceipts}
         </div>
     )
