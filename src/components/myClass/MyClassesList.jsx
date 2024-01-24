@@ -31,7 +31,7 @@ console.log(receipts)
 
     return (
         <div>
-            <h1>myClassList</h1>
+            <h1>My Classes</h1>
             {allReceipts}
         </div>
     )

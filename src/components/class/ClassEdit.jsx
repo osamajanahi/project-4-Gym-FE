@@ -114,23 +114,28 @@ export default function ClassEdit() {
             <h1>ClassEdit</h1>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id='name' name='name' onChange={handleChange} value={classes.name || ''} required/>
+                    <label className='form-label' htmlFor="name">Name:</label>
+                    <input className='form-control' type="text" id='name' name='name' onChange={handleChange} value={classes.name || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="duration">Duration:</label>
-                    <input type="text" id='duration' name='duration' onChange={handleChange} value={classes.duration || ''} required/>
+                    <label className='form-label' htmlFor="duration">Duration:</label>
+                    <input className='form-control' type="text" id='duration' name='duration' onChange={handleChange} value={classes.duration || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="price">Price:</label>
-                    <input type="number" id='price'name='price' onChange={handleChange} value={classes.price || ''} required/>
+                    <label htmlFor="days">Days:</label>
+                    <input className='form-control' type="text" id='days' name='days' onChange={handleChange} value={classes.duration || ''} required/>
                 </div>
 
                 <div>
-                    <label htmlFor="description">Description:</label>
-                    <input type="text" id='description'name='description' onChange={handleChange} value={classes.description || ''} required/>
+                    <label className='form-label' htmlFor="price">Price:</label>
+                    <input className='form-control' type="number" id='price'name='price' onChange={handleChange} value={classes.price || ''} required/>
+                </div>
+
+                <div>
+                    <label className='form-label' htmlFor="description">Description:</label>
+                    <input className='form-control' type="text" id='description'name='description' onChange={handleChange} value={classes.description || ''} required/>
                 </div>
 
                 {/* <div>
@@ -141,8 +146,8 @@ export default function ClassEdit() {
                 </div> */}
 
                 <div>
-                    <label htmlFor="image">Images:</label>
-                    <input type="file" name='image' id='image' onChange={handleChange} multiple/>
+                    <label className='form-label' htmlFor="image">Images:</label>
+                    <input className='form-control' type="file" name='image' id='image' onChange={handleChange} multiple/>
                 </div>
 
                 <div className="mb-3">
@@ -152,7 +157,7 @@ export default function ClassEdit() {
                     </select>
                 </div>
 
-                <button type='submit'>Update Class</button>
+                <button className='btn btn-outline-primary' type='submit'>Update Class</button>
             </form>
         </div>
     )

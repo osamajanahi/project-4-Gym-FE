@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Signup from './components/user/Signup';
 import Signin from './components/user/Signin';
 import {Routes, Route} from 'react-router-dom';
@@ -84,22 +86,25 @@ function App() {
     setIsAuth(false);
     setUser(null);
   }
-  console.log(user.id)
+  // console.log(user.id)
   return (
     <div className="App">
+      {isAuth ? <NavBar key={user.id} isAuth={isAuth} onLogoutHandler={onLogoutHandler} userId={user.id} />
+      :
       <NavBar isAuth={isAuth} onLogoutHandler={onLogoutHandler}/>
+}
       <div>
       <Routes>
         <Route path="/" element={ <Home isAuth={isAuth}/>}></Route>
-        <Route path="/class" element={<ClassList/>}></Route>
+        <Route path="/class" element={isAuth ? <ClassList userId={user.id} key={user.id} isAuth={isAuth} /> : <ClassList/>}></Route>
         <Route path="/signup" element={<Signup register={registerHandler}></Signup>}></Route>
         <Route path="/signin" element={ isAuth ? <Home isAuth={isAuth}/> : <Signin login={loginHandler}></Signin>}></Route>
-        <Route path='/class/add' element={<ClassCreate/>}></Route>
+        <Route path='/class/add' element={<ClassCreate />}></Route>
         <Route path="/class/edit/:id" element={<ClassEdit/>}></Route>
         <Route path="/class/view/:id" element={ isAuth ? <ClassDetail key={user.id} userId={user.id}/> : <ClassDetail/>}></Route>
         <Route path="/class/manage/:id" element={<ClassManage/>}></Route>
         <Route path="/myClasses" element={isAuth ? <MyClassesList key={user.id} userId={user.id}/> : <MyClassesList/>}></Route>
-        <Route path="/category" element={<CategoryList />}></Route>
+        <Route path="/category" element={isAuth ? <CategoryList userId={user.id} key={user.id} isAuth={isAuth} /> : <CategoryList/>}></Route>
         <Route path='/category/edit/:id' element={<CategoryEdit/>}/>
         <Route path='/category/add' element={<CategoryCreate/>}></Route>
         <Route path="/category/view/:id" element={<CategoryDetail/>}></Route>

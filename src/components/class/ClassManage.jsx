@@ -54,45 +54,54 @@ export default function ClassManage() {
 
     console.log(usersIn)
     return (
-        <div>
-            <h1>ClassManage</h1>
+        <div className="container mt-4">
+        <h1>Class Manage</h1>
+  
+        <div className="row mt-4">
+          <div className="col">
             <h3>Users in class</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {usersIn?.map((user, index) => (
-                        <tr key={index}>
-                            <td>{user.fullName}</td>
-                            <td>
-                                <button onClick={() => removeUser({"class": id, "user": user._id})}>Remove</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usersIn?.map((user, index) => (
+                  <tr key={index}>
+                    <td>{user.fullName}</td>
+                    <td>
+                      <button className="btn btn-danger" onClick={() => removeUser({"class": id, "user": user._id})}>Remove</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
-
+          </div>
+  
+          <div className="col">
             <h3>Users not in class</h3>
-            <table>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Action</th>
-                    </tr>
-                <tbody>
-                    {usersOut?.map((user, index) => (
-                        <tr key={index}>
-                            <td>{user.fullName}</td>
-                            <td>
-                                <button onClick={() => addUser({"class": id, "user": user._id})}>Add</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>        
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usersOut?.map((user, index) => (
+                  <tr key={index}>
+                    <td>{user.fullName}</td>
+                    <td>
+                      <button className="btn btn-success" onClick={() => addUser({"class": id, "user": user._id})}>Add</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
     );
     }

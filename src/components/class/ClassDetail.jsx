@@ -80,16 +80,22 @@ export default function ClassDetail(props) {
 
     return (
         
-        <div>
-            <h1>ClassDetail</h1>
-                <h3>Class: {classes.name}</h3>
-                <h3>Duration: {classes.duration}</h3>
-                <h3>Price: {classes.price}</h3>
-                <h3>Description: {classes.description}</h3>
+        <div className="container mt-4">
+                <h3>Class: <span className='inner-name'>{classes.name}</span></h3>
+                <h3>Duration: <span className='inner-name'>{classes.duration}</span></h3>
+                <h3>Days: <span className='inner-name'>{classes.days}</span></h3>
+                <h3>Price: <span className='inner-name'>{classes.price}BD (per month)</span></h3>
+                <h3>Description: <span className='inner-name'>{classes.description}</span></h3>
                 <h3>Images:</h3>
-                {classes.image?.map((image, index) => (
-                    <img key={index} src={image} alt='class image' height={100} width={100}/>
-                ))}
+                <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
+                        {classes.image?.map((image, index) => (
+                        <div key={index} className={`carousel-item ${index == 0 ? 'active' : ''}`}>
+                            <img src={image} alt={`class image ${index + 1}`} className="d-block"  height={400} width={400} />
+                        </div>
+                        ))}
+                    </div>
+                </div>
 
                 <br />
 

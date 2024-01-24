@@ -83,27 +83,32 @@ export default function ClassCreate() {
             <form onSubmit={handleSubmit}>
                  <div>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" id='name' name='name' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='name' name='name' onChange={handleChange} required/>
                 </div>
 
                <div>
                     <label htmlFor="duration">Duration:</label>
-                    <input type="text" id='duration' name='duration' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='duration' name='duration' onChange={handleChange} required/>
+                </div>
+
+                <div>
+                    <label htmlFor="days">Days:</label>
+                    <input className='form-control' type="text" id='days' name='days' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="price">Price:</label>
-                    <input type="number" id='price' name='price' onChange={handleChange} required/>
+                    <input className='form-control'type="number" id='price' name='price' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="description">Description:</label>
-                    <input type="text" id='description' name='description' onChange={handleChange} required/>
+                    <input className='form-control' type="text" id='description' name='description' onChange={handleChange} required/>
                 </div>
 
                 <div>
                     <label htmlFor="image">Images:</label>
-                    <input type="file" id='image' name='image' onChange={handleChange} multiple required/>
+                    <input className='form-control'type="file" id='image' name='image' onChange={handleChange} multiple required/>
                 </div>
 
                 <div className="mb-3">
@@ -114,7 +119,7 @@ export default function ClassCreate() {
                     </select>
                 </div>
 
-                <button type='submit'>Add Class</button>
+                <button className='btn btn-outline-primary' type='submit'>Add Class</button>
             </form>
         </div>
     )

@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 
 export default function CategoryDetail() {
     const [classes, setClasses] = useState([]);
+    const [cat, setCat] = useState();
     const { id } = useParams();
     useEffect(() => {
         getClasses();
@@ -12,6 +13,7 @@ export default function CategoryDetail() {
         console.log(id)
         Axios.get(`/category/detail?id=${id}`)
             .then(response => {
+                setCat(response.data.category)
                 setClasses(response.data.category.class);
             })
             .catch(err => {
@@ -31,6 +33,7 @@ export default function CategoryDetail() {
 
     return (
         <div className="container mt-4">
+            <h1>{cat.name}</h1>
             <div className="row">
                 {console.log(classes)}
                 {classes.map(classe => (
@@ -38,9 +41,9 @@ export default function CategoryDetail() {
                         <div className="card h-100 shadow-sm">
                             {classe.image && <img src={classe.image[0]} className="card-img-top" alt="classes" style={{ height: '250px' }} />}
                             <div className="card-body">
-                                <h5 className="card-title">{classe.title}</h5>
+                                <h5 className="card-title">{classe.name}</h5>
                                 {/* Additional classes details */}
-                                <Link to={`/class/view/${classe._id}`} className="btn btn-outline-secondary">View</Link>
+                                <Link to={`/class/view/${classe._id}`} className="btn btn-outline-primary">View</Link>
                                 {/* <button className="btn btn-outline-primary" onClick={() => addToWishlist(classes._id)}>Wishlist</button> */}
 
                             </div>
